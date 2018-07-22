@@ -114,46 +114,19 @@ end
 
 %% REORGANIZE DATA
 
-gain=(mean(choice1)+mean(choice2))/2;
-loss=(mean(choice3)+mean(choice4))/2;
 big =(mean(choice1)+mean(choice3))/2;
 small=(mean(choice2)+mean(choice4))/2;
 
-bgain=(mean(bmodel1)+mean(bmodel2))/2;
-bloss=(mean(bmodel3)+mean(bmodel4))/2;
 bbig=(mean(bmodel1)+mean(bmodel3))/2;
 bsmall=(mean(bmodel2)+mean(bmodel4))/2;
 
-valence=   [gain;loss];
 magnitude=  [big;small];
-
-bvalence=  [bgain;bloss];
 bmagnitude= [bbig;bsmall];
-
-valence_dif=valence(1,:)-valence(2,:);
-bvalence_dif=bvalence(1,:)-bvalence(2,:);
 
 magnitude_dif=magnitude(1,:)-magnitude(2,:);
 bmagnitude_dif=bmagnitude(1,:)-bmagnitude(2,:);
 
 %% PLOT THE SIMULATIONS
-
-Colors1(1,:)=[0.64 0.4 0.64];
-Colors1(2,:)=[0.64 0.4 0.64];
-Colors5(1,:)=[0.4 0.4 0.4];
-
-figure;
-subplot(2,2,1);
-BarsAndErrorPlotModel(valence,bvalence,Colors1,0.5,1.0,20,0.2);
-subplot(2,2,2);
-BarsAndErrorPlotModel(magnitude,bmagnitude,Colors1,0.5,1.0,20,0.2);
-subplot(2,2,3);
-BarsAndErrorPlotModel(valence_dif,bvalence_dif,Colors5,-0.2,0.2,20,0.2);
-subplot(2,2,4);
-BarsAndErrorPlotModel(magnitude_dif,bmagnitude_dif,Colors5,-0.2,0.2,20,0.2);
-
-
-%% PLOT TRANSFER TEST
 
 Colors(1,:)=[0.64 0.4 0.64];
 Colors(2,:)=[0.64 0.4 0.64];
@@ -164,7 +137,16 @@ Colors(6,:)=[0.64 0.4 0.64];
 Colors(7,:)=[0.64 0.4 0.64];
 Colors(8,:)=[0.64 0.4 0.64];
 
-figure('Name','Post Training','NumberTitle','off');
-BarsAndErrorPlotModel(rating,mrating,Colors,0,1.0,14,0.2);
+figure('Name','Learning Test correct choice','NumberTitle','off');
+subplot(1,2,1);
+BarsAndErrorPlotModel(magnitude,bmagnitude,Colors,0.5,1.0,12,0);
+subplot(1,2,2);
+BarsAndErrorPlotModel(magnitude_dif,bmagnitude_dif,Colors,-0.2,0.2,12,0);
+
+
+%% PLOT TRANSFER TEST
+
+figure('Name','Transfer Test','NumberTitle','off');
+BarsAndErrorPlotModel(rating,mrating,Colors,0,1.0,12,0.2);
 
 
